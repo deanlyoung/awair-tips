@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1" />
+		<meta name="apple-mobile-web-app-title" content="Awair Tips" />
+		
+		<link rel="apple-touch-icon" href="img/logo.png" />
+		<link rel="apple-touch-icon" sizes="152x152" href="img/logo-152.png" />
+		<link rel="apple-touch-icon" sizes="180x180" href="img/logo-180.png" />
+		<link rel="apple-touch-icon" sizes="167x167" href="img/logo-167.png" />
+		<link rel="apple-touch-startup-image" href="img/awair.png" />
+		<link rel="icon" type="image/x-icon" href="img/logo.ico" />
+		
+		<link rel="stylesheet" href="css/style.css" type="text/css" />
+		
+		<title>Awair Tips</title>
+		
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		
+		<script type="text/javascript" src="js/script.js"></script>
+		<script type="text/javascript" src="js/iscroll.js"></script>
+		<script type="text/javascript" src="js/demoUtils.js"></script>
+		<script type="text/javascript" src="js/clipboard.js"></script>
+		<script type="text/javascript">
+			var myScroll;
+			var clipboard;
+			
+			function loaded() {
+				myScroll = new IScroll('#wrapper', {
+					mouseWheel: false,
+					scrollbars: false,
+					interactiveScrollbars: false,
+					//click: true,
+					tap: true,
+					snap: '.card-buffer',
+					preventDefault: false
+				});
+				console.log('myScroll loaded');
+			}
+			
+			function onCompletion() {
+				setTimeout(function () {
+					myScroll.refresh();
+				}, 100);
+				console.log('refreshing...');
+				clipboard = new ClipboardJS('.share');
+				console.log('clipboard functional');
+			};
+			
+			document.addEventListener('touchmove', function (e) { e.preventDefault(); }, isPassive() ? {
+				capture: false,
+				passive: false
+			} : false);
+		</script>
+	</head>
+	<body onload="request_tips()">
+		<div id="header">Awair Tips</div>
+		
+		<div id="wrapper">
+			<div id="scroller">
+				<div id="card-stream"></div>
+			</div>
+		</div>
+		
+		<div id="footer"></div>
+		
+	</body>
+</html>
