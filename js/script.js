@@ -2,6 +2,8 @@ var refreshTime;
 var authToken;
 var devType;
 var devId;
+var lang;
+var env;
 var cardHtml = [];
 
 var loadMoreCard = '<div id="to-be-replaced" class="card-buffer"><div class="cards load-more-card"><div class="load-more-card-body"><a id="go-to-top" href="javascript:myScroll.scrollToElement(document.querySelector(\'#scroller .card-buffer:nth-child(1)\'), 100, 0, 0, IScroll.utils.ease.elastic)">Go to Top</a><a id="load-more" href="" onclick="load_more(); return false;">Load More</a></div></div></div>';
@@ -21,6 +23,15 @@ setInterval(getParameterByName, 1000);
 authToken = getParameterByName('authToken');
 devType = getParameterByName('devType');
 devId =  getParameterByName('devId');
+lang = getParameterByName('lang') || 'eng';
+env = getParameterByName('env');
+if (env == 'stg') {
+	env = 'stg-'
+} else if (env == 'prd') {
+	env = ''
+} else {
+	env = 'stg-'
+}
 
 if (refreshTime !== null && refreshTime !== undefined) {
 	refreshTime = refreshTime * 1000;
@@ -40,7 +51,7 @@ function classToggle(href) {
 
 function request_tips() {
 	$.ajax({
-		url: 'https://stg-tips.awair.is/v1/users/self/devices/' + devType + '/' + devId + '/tips?lang=eng',
+		url: 'https://' + env + 'tips.awair.is/v1/users/self/devices/' + devType + '/' + devId + '/tips?lang=' + lang,
 		type: 'GET',
 		dataType: 'json',
 		success: function(json) {
